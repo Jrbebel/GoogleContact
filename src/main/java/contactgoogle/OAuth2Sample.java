@@ -2,10 +2,8 @@
 package contactgoogle;
 
 import com.google.api.client.auth.oauth2.Credential;
-
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
-
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 
@@ -47,13 +45,12 @@ public class OAuth2Sample {
             System.out.println("Error list resources");
         } else {
             System.out.println("List is full");
-            peopleApiGoogle.getInformationPerson(credential,httpTransport,peopleResource.subList(50,100)); //c
+            peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(50, 100)); //c
         }
 
         return;
 
     }
-
 
 
 }

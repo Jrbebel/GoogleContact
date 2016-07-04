@@ -42,7 +42,7 @@ public class peopleApiGoogle {
     /**
      * OAuth 2.0 scopes.
      */
-    private static final List<String> SCOPES = Arrays.asList("https://www.googleapis.com/auth/contacts", "https://www.googleapis.com/auth/contacts.readonly","https://www.googleapis.com/auth/user.emails.read");
+    private static final List<String> SCOPES = Arrays.asList("https://www.googleapis.com/auth/contacts", "https://www.googleapis.com/auth/contacts.readonly", "https://www.googleapis.com/auth/user.emails.read");
 
     /**
      * Path to Resources of Contact
@@ -90,12 +90,13 @@ public class peopleApiGoogle {
 
         People peopleService = new People.Builder(httpTransport, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME)
                 .build();
-        ListConnectionsResponse response = peopleService.people().connections().list( pathResourcesContact).setPageSize(280).setFields("connections(resourceName)").execute();
+        ListConnectionsResponse response = peopleService.people().connections().list(pathResourcesContact).setPageSize(280).setFields("connections(resourceName)").execute();
         List<Person> connections = response.getConnections();
 
         listResourcesPerson(connections);
         return listResources;
     }
+
     /**
      * get Resources of person
      */
@@ -113,11 +114,10 @@ public class peopleApiGoogle {
  *
  */
 
-           GetPeopleResponse response = peopleService.people().getBatchGet().setResourceNames(resourcesPerson).setRequestMaskIncludeField("person.names,person.email_addresses,person.birthdays,person.addresses,person.genders,person.phone_numbers," +
-                   "person.photos,person.residences").setFields("responses(person(addresses,birthdays,emailAddresses,genders,names,phoneNumbers,photos,residences,resourceName),requestedResourceName)").execute();
+        GetPeopleResponse response = peopleService.people().getBatchGet().setResourceNames(resourcesPerson).setRequestMaskIncludeField("person.names,person.email_addresses,person.birthdays,person.addresses,person.genders,person.phone_numbers," +
+                "person.photos,person.residences").setFields("responses(person(addresses,birthdays,emailAddresses,genders,names,phoneNumbers,photos,residences,resourceName),requestedResourceName)").execute();
 
-            System.out.println("con"+response);
-
+        System.out.println("con" + response);
 
 
         return listResources;
