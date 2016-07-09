@@ -36,19 +36,52 @@ public class OAuth2Sample {
 
         dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
 
+        int numberContact = 206;
 
-        // authorization
         Credential credential = peopleApiGoogle.authorize(httpTransport, dataStoreFactory);
-        List peopleResource = peopleApiGoogle.getResourcesPerson(credential, httpTransport); //get resources of people
+        List peopleResource = peopleApiGoogle.getResourcesPerson(credential, httpTransport, numberContact); //get resources of people
+
+        int sizePeopleResource = peopleResource.size();
+        int pas = 49;
+        int divisible = sizePeopleResource / pas;
+        int modulo = sizePeopleResource % pas;
+        int debut = 0;
+        int fin = 0;
+        int finModulo = divisible * pas;
+        // authorization
+
         /*Know if list is empty or full**/
         if (peopleResource.isEmpty()) {
+
             System.out.println("Error list resources");
+
         } else {
-            System.out.println("List is full");
-            peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(50, 100)); //c
+
+            System.out.println("List is full avec " + sizePeopleResource + " contact");
+            System.out.println("modulo " + modulo);
+            System.out.println("finmodulo " + finModulo);
+            System.out.println("divisible " + divisible);
+
+            for (int i = 1; i < divisible + 1; i++) {
+
+                fin = i * pas;
+
+                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" + i);
+                System.out.println("pas de debut est de " + debut + " et la fin de " + fin + "----------------------------------------------------------------------------------");
+
+                peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(debut, fin)); // 0 to 49 , 49 to 99 , 99 to 149
+
+                debut += pas;
+                if (fin == finModulo) {
+                    System.out.println("mon modulo---------------------------------------------------------------------------------------------------------------------------------" + finModulo);
+                    peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(finModulo, sizePeopleResource)); // 0 to 49 , 49 to 99 , 99 to 149
+
+                }
+                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------FIN" + i);
+            }
+            return;
         }
 
-        return;
 
     }
 
