@@ -16,6 +16,7 @@ public class OAuth2Sample {
      * Directory to store user credentials.
      */
     private static final java.io.File DATA_STORE_DIR
+
             = new java.io.File(System.getProperty("user.home"), ".store/oauth2_sample");
 
     /**
@@ -36,12 +37,13 @@ public class OAuth2Sample {
 
         dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
 
-        int numberContact = 206;
+        int numberContact = 98;
 
         Credential credential = peopleApiGoogle.authorize(httpTransport, dataStoreFactory);
         List peopleResource = peopleApiGoogle.getResourcesPerson(credential, httpTransport, numberContact); //get resources of people
 
         int sizePeopleResource = peopleResource.size();
+        System.out.println(sizePeopleResource);
         int pas = 49;
         int divisible = sizePeopleResource / pas;
         int modulo = sizePeopleResource % pas;
@@ -62,23 +64,23 @@ public class OAuth2Sample {
             System.out.println("finmodulo " + finModulo);
             System.out.println("divisible " + divisible);
 
-            for (int i = 1; i < divisible + 1; i++) {
+            for (int i = 0; i < divisible; i++) {
 
+                peopleApiGoogle.Remplissage(credential, httpTransport, debut, (i + 1) * pas);
                 fin = i * pas;
 
-                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" + i);
-                System.out.println("pas de debut est de " + debut + " et la fin de " + fin + "----------------------------------------------------------------------------------");
-
-                peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(debut, fin)); // 0 to 49 , 49 to 99 , 99 to 149
-
                 debut += pas;
-                if (fin == finModulo) {
-                    System.out.println("mon modulo---------------------------------------------------------------------------------------------------------------------------------" + finModulo);
-                    peopleApiGoogle.getInformationPerson(credential, httpTransport, peopleResource.subList(finModulo, sizePeopleResource)); // 0 to 49 , 49 to 99 , 99 to 149
 
-                }
-                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------FIN" + i);
+
+                System.out.println("je remplis" + debut + "- fin  " + (i + 1) * pas + "-------------------------------------------------------------------------------------------------------------");
             }
+
+
+            if (modulo != 0) {
+                peopleApiGoogle.Remplissage(credential, httpTransport, 0, modulo);
+                System.out.println("debut :" + finModulo + "fin " + (sizePeopleResource));
+            }
+
             return;
         }
 
